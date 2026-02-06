@@ -7,10 +7,10 @@ import '../../../../core/error/exceptions.dart';
 import '../../../../core/services/service_locator.dart';
 
 class HomeRepo {
-  Future<Either<String, HomeModel>> getVendorOrders(String text) async {
+  Future<Either<String, HomeModel>> getResponse(String text) async {
     try {
       final res = await sl<ApiConsumer>().post(
-        EndPoints.apiKey,
+        EndPoints.generateContent,
         body: {
           "contents": [
             {
