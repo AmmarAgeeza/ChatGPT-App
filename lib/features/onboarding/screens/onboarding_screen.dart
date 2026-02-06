@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../home/views/screens/home_screen.dart';
+
 class OnboardingScreen extends StatelessWidget {
   const OnboardingScreen({super.key});
 
@@ -46,7 +48,7 @@ class OnboardingScreen extends StatelessWidget {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (_) => Scaffold()),
+                  MaterialPageRoute(builder: (_) => HomeScreen()),
                 );
               },
               child: ListTile(
