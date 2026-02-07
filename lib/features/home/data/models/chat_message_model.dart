@@ -18,4 +18,16 @@ class ChatMessage {
       status: status ?? this.status,
     );
   }
+
+  Map<String, dynamic> toJson() {
+    return {'text': text, 'isUser': isUser, 'status': status.index};
+  }
+
+  factory ChatMessage.fromJson(Map<String, dynamic> json) {
+    return ChatMessage(
+      text: json['text'],
+      isUser: json['isUser'],
+      status: MessageStatus.values[json['status'] ?? 0],
+    );
+  }
 }

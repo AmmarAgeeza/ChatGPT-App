@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'dart:convert';
 import 'dart:core';
 
@@ -62,7 +61,9 @@ class DioConsumer extends ApiConsumer {
     Map<String, dynamic>? queryParameters,
   }) async {
     try {
-      CustomPrint.printTest("networkInfo.isConnected: ${await networkInfo.isConnected}");
+      CustomPrint.printTest(
+        "networkInfo.isConnected: ${await networkInfo.isConnected}",
+      );
       // if (await networkInfo.isConnected) {
       final response = await client.post(
         path,
@@ -72,11 +73,11 @@ class DioConsumer extends ApiConsumer {
       );
 
       return decodeResponse(response);
-        // }
-        // else {
-        //   throw const NoInternetConnectionException(
-        //     AppStrings.noInternetConnection,
-        //   );
+      // }
+      // else {
+      //   throw const NoInternetConnectionException(
+      //     AppStrings.noInternetConnection,
+      //   );
       // }
     } on DioException catch (error) {
       _handleDioError(error);
@@ -206,7 +207,9 @@ class DioConsumer extends ApiConsumer {
       case DioExceptionType.receiveTimeout:
       case DioExceptionType.badCertificate:
       case DioExceptionType.connectionError:
-        throw FetchDataException(errorResponse['error']?["message"] ?? "Opps something went wrong");
+        throw FetchDataException(
+          errorResponse['error']?["message"] ?? "Opps something went wrong",
+        );
       case DioExceptionType.badResponse:
         switch (error.response?.statusCode) {
           case StatusCode.notFound:
