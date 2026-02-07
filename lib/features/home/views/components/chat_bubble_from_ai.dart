@@ -3,8 +3,13 @@ import 'package:flutter/material.dart';
 
 class ChatBubleFromAI extends StatelessWidget {
   final String message;
+  final bool animate;
 
-  const ChatBubleFromAI({super.key, required this.message});
+  const ChatBubleFromAI({
+    super.key,
+    required this.message,
+    this.animate = true,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -30,6 +35,7 @@ class ChatBubleFromAI extends StatelessWidget {
             Expanded(
               child: TypewriterText(
                 text: message,
+                animate: animate,
                 style: TextStyle(
                   fontSize: 14,
                   color: Color(0xff656565),

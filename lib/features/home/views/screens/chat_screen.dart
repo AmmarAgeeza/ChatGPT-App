@@ -53,7 +53,10 @@ class _ChatScreenState extends State<ChatScreen> {
                       },
                     );
                   } else {
-                    return ChatBubleFromAI(message: message.text);
+                    return ChatBubleFromAI(
+                      message: message.text,
+                      animate: realIndex == 0,
+                    );
                   }
                 },
               );

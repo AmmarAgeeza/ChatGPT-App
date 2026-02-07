@@ -56,6 +56,11 @@ class _TextFieldComponentState extends State<TextFieldComponent> {
                   var text = controller.text.trim();
                   controller.clear();
                   context.read<ChatCubit>().sendMessage(text);
+                } else {
+                  controller.clear();
+                  context.read<ChatCubit>().sendMessage(
+                    "Hello chatGPT,how are you today?",
+                  );
                 }
               },
               child: SizedBox(

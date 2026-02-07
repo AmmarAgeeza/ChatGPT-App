@@ -5,14 +5,16 @@ import 'package:flutter_markdown/flutter_markdown.dart';
 
 class TypewriterText extends StatefulWidget {
   final String text;
-  final TextStyle? style;
+  final bool animate;
   final Duration duration;
+  final TextStyle? style;
 
   const TypewriterText({
     super.key,
     required this.text,
     this.style,
     this.duration = const Duration(milliseconds: 10),
+    this.animate = true,
   });
 
   @override
@@ -21,13 +23,17 @@ class TypewriterText extends StatefulWidget {
 
 class _TypewriterTextState extends State<TypewriterText> {
   String _displayedText = "";
-  late Timer _timer;
+  Timer? _timer;
   int _currentIndex = 0;
 
   @override
   void initState() {
     super.initState();
-    _startAnimation();
+    if (widget.animate) {
+      _startAnimation();
+    } else {
+      _displayedText = widget.text;
+    }
   }
 
   @override
@@ -36,8 +42,14 @@ class _TypewriterTextState extends State<TypewriterText> {
     if (oldWidget.text != widget.text) {
       _currentIndex = 0;
       _displayedText = "";
-      _timer.cancel();
-      _startAnimation();
+      _timer?.cancel();
+      if (widget.animate) {
+        _startAnimation();
+      } else {
+        setState(() {
+          _displayedText = widget.text;
+        });
+      }
     }
   }
 
@@ -50,14 +62,14 @@ class _TypewriterTextState extends State<TypewriterText> {
           _currentIndex++;
         });
       } else {
-        _timer.cancel();
+        _timer?.cancel();
       }
     });
   }
 
   @override
   void dispose() {
-    _timer.cancel();
+    _timer?.cancel();
     super.dispose();
   }
 
