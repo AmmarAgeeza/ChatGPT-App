@@ -56,7 +56,8 @@ class _TextFieldComponentState extends State<TextFieldComponent> {
                   var text = controller.text.trim();
                   controller.clear();
                   context.read<ChatCubit>().sendMessage(text);
-                } else {
+                } else if (context.read<ChatCubit>().messages.isEmpty &&
+                    controller.text.isEmpty) {
                   controller.clear();
                   context.read<ChatCubit>().sendMessage(
                     "Hello chatGPT,how are you today?",

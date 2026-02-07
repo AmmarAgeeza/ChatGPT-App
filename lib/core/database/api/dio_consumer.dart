@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:core';
 
+import 'package:chatgpt_app/core/utils/custom_print.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 
@@ -60,20 +62,22 @@ class DioConsumer extends ApiConsumer {
     Map<String, dynamic>? queryParameters,
   }) async {
     try {
-      if (await networkInfo.isConnected) {
-        final response = await client.post(
-          path,
-          data: formDataIsEnabled ? FormData.fromMap(body!) : body,
-          options: Options(headers: headers),
-          queryParameters: queryParameters,
-        );
+      CustomPrint.printTest("networkInfo.isConnected: ${await networkInfo.isConnected}");
+      // if (await networkInfo.isConnected) {
+      final response = await client.post(
+        path,
+        data: formDataIsEnabled ? FormData.fromMap(body!) : body,
+        options: Options(headers: headers),
+        queryParameters: queryParameters,
+      );
 
-        return decodeResponse(response);
-      } else {
-        throw const NoInternetConnectionException(
-          AppStrings.noInternetConnection,
-        );
-      }
+      return decodeResponse(response);
+        // }
+        // else {
+        //   throw const NoInternetConnectionException(
+        //     AppStrings.noInternetConnection,
+        //   );
+      // }
     } on DioException catch (error) {
       _handleDioError(error);
     }
@@ -195,14 +199,14 @@ class DioConsumer extends ApiConsumer {
   }
 
   dynamic _handleDioError(DioException error) {
-    var errorResponse = jsonDecode(error.response!.data);
+    var errorResponse = jsonDecode(error.response?.data ?? "{}");
     switch (error.type) {
       case DioExceptionType.connectionTimeout:
       case DioExceptionType.sendTimeout:
       case DioExceptionType.receiveTimeout:
       case DioExceptionType.badCertificate:
       case DioExceptionType.connectionError:
-        throw FetchDataException(errorResponse['error']["message"]);
+        throw FetchDataException(errorResponse['error']?["message"] ?? "Opps something went wrong");
       case DioExceptionType.badResponse:
         switch (error.response?.statusCode) {
           case StatusCode.notFound:
@@ -225,7 +229,7 @@ class DioConsumer extends ApiConsumer {
               errorResponse['error']["message"],
             );
           default:
-            throw ServerException(errorResponse['error']["message"]);
+            throw ServerException("Opps something went wrong");
         }
       case DioExceptionType.cancel:
         break;
