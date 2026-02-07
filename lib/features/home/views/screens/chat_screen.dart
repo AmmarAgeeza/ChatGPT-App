@@ -1,4 +1,8 @@
+import 'package:chatgpt_app/core/utils/commons.dart';
+import 'package:chatgpt_app/features/home/views/components/chat_bubble.dart';
+import 'package:chatgpt_app/features/home/views/cubit/chat_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../components/chat_bubble_from_ai.dart';
 
@@ -11,25 +15,48 @@ class ChatScreen extends StatefulWidget {
 
 class _ChatScreenState extends State<ChatScreen> {
   final ScrollController _controller = ScrollController();
-  // void _scrollDown() {
-  //   _controller.animateTo(
-  //     0,
-  //     duration: const Duration(seconds: 2),
-  //     curve: Curves.easeIn,
-  //   );
-  // }
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         Expanded(
-          child: ListView.builder(
-            reverse: true,
-            controller: _controller,
-            itemCount: 3,
-            itemBuilder: (ctx, index) {
-              return ChatBubleFromAI(message: "messagesList[index].message");
+          child: BlocConsumer<ChatCubit, ChatState>(
+            listener: (context, state) {
+              if (state is ChatFailure) {
+                context.showToastMsg(
+                  msg: "Oops, something went wrong",
+                  toastState: ToastStates.error,
+                );
+              }
+            },
+            builder: (context, state) {
+              var messages = context.read<ChatCubit>().messages;
+              var isLoading = state is ChatLoading;
+
+              return ListView.builder(
+                reverse: true,
+                controller: _controller,
+                itemCount: messages.length + (isLoading ? 1 : 0),
+                itemBuilder: (ctx, index) {
+                  if (isLoading && index == 0) {
+                    return const ChatBubleFromAI(message: "Thinking...");
+                  }
+
+                  var realIndex = isLoading ? index - 1 : index;
+                  var message = messages[realIndex];
+                  if (message.isUser) {
+                    return ChatBuble(
+                      message: message,
+                      onRetry: () {
+                        context.read<ChatCubit>().retry(realIndex);
+                      },
+                    );
+                  } else {
+                    return ChatBubleFromAI(message: message.text);
+                  }
+                },
+              );
             },
           ),
         ),

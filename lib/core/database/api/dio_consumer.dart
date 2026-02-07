@@ -224,7 +224,7 @@ class DioConsumer extends ApiConsumer {
               errorResponse['error']["message"],
             );
           default:
-            throw ServerException(errorResponse);
+            throw ServerException(errorResponse['error']["message"]);
         }
       case DioExceptionType.cancel:
         break;

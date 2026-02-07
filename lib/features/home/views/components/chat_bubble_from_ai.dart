@@ -1,3 +1,4 @@
+import 'package:chatgpt_app/features/home/views/components/typewriter_text.dart';
 import 'package:flutter/material.dart';
 
 class ChatBubleFromAI extends StatelessWidget {
@@ -26,12 +27,14 @@ class ChatBubleFromAI extends StatelessWidget {
               ],
             ),
             SizedBox(width: 20),
-            Text(
-              message,
-              style: TextStyle(
-                fontSize: 14,
-                color: Color(0xff656565),
-                fontWeight: FontWeight.w500,
+            Expanded(
+              child: TypewriterText(
+                text: message,
+                style: TextStyle(
+                  fontSize: 14,
+                  color: Color(0xff656565),
+                  fontWeight: FontWeight.w500,
+                ),
               ),
             ),
           ],

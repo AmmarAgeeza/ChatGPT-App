@@ -1,9 +1,11 @@
+import 'package:chatgpt_app/features/home/data/models/chat_message_model.dart';
 import 'package:flutter/material.dart';
 
 class ChatBuble extends StatelessWidget {
-  final String message;
+  final ChatMessage message;
+  final VoidCallback? onRetry;
 
-  const ChatBuble({super.key, required this.message});
+  const ChatBuble({super.key, required this.message, this.onRetry});
 
   @override
   Widget build(BuildContext context) {
@@ -20,16 +22,41 @@ class ChatBuble extends StatelessWidget {
             bottomRight: Radius.circular(25),
           ),
         ),
-        child: Text(
-          message,
-          style: TextStyle(
-            fontSize: 14,
-            color: Color(0xffFFFFFF),
-            fontWeight: FontWeight.bold,
-          ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            Text(
+              message.text,
+              style: TextStyle(
+                fontSize: 14,
+                color: Color(0xffFFFFFF),
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            if (message.status == MessageStatus.error) ...[
+              const SizedBox(height: 5),
+              GestureDetector(
+                onTap: onRetry,
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: const [
+                    Icon(Icons.refresh, color: Colors.white, size: 16),
+                    SizedBox(width: 4),
+                    Text(
+                      "Retry",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 12,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ],
         ),
       ),
     );
   }
 }
-

@@ -1,8 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:chatgpt_app/features/home/views/cubit/chat_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import 'package:chatgpt_app/features/home/views/cubit/chat_cubit.dart';
 
 class TextFieldComponent extends StatefulWidget {
   const TextFieldComponent({super.key, this.isSugget = false});
@@ -55,7 +54,8 @@ class _TextFieldComponentState extends State<TextFieldComponent> {
               onTap: () {
                 if (controller.text.isNotEmpty) {
                   var text = controller.text.trim();
-                  context.read<ChatCubit>().getResponse(text);
+                  controller.clear();
+                  context.read<ChatCubit>().sendMessage(text);
                 }
               },
               child: SizedBox(

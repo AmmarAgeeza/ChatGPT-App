@@ -1,5 +1,6 @@
 import 'package:chatgpt_app/features/home/views/components/chat_suggestions_component.dart';
 import 'package:chatgpt_app/features/home/views/cubit/chat_cubit.dart';
+import 'package:chatgpt_app/features/home/views/screens/chat_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -23,9 +24,25 @@ class HomeScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 //chat suggestions
-                Expanded(child: ChatSuggestionsComponent()),
+                Expanded(
+                  child: BlocBuilder<ChatCubit, ChatState>(
+                    builder: (context, state) {
+                      var messages = context.read<ChatCubit>().messages;
+                      if (messages.isEmpty) {
+                        return ChatSuggestionsComponent();
+                      } else {
+                        return ChatScreen();
+                      }
+                    },
+                  ),
+                ),
                 //text field
-                TextFieldComponent(isSugget: true),
+                BlocBuilder<ChatCubit, ChatState>(
+                  builder: (context, state) {
+                    var messages = context.read<ChatCubit>().messages;
+                    return TextFieldComponent(isSugget: messages.isEmpty);
+                  },
+                ),
               ],
             ),
           ),

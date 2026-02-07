@@ -23,7 +23,7 @@ class ChatSuggestionsComponent extends StatelessWidget {
               ChatSuggestionModel.suggestionsList[index].suggestions.length,
               (i) => TextButton(
                 onPressed: () {
-                  context.read<ChatCubit>().getResponse(
+                  context.read<ChatCubit>().sendMessage(
                     ChatSuggestionModel.suggestionsList[index].suggestions[i],
                   );
                 },

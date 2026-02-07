@@ -12,7 +12,7 @@ import '../network/netwok_info.dart';
 final sl = GetIt.instance;
 Future<void> serviceLocatorInit() async {
   //cubits
-  sl.registerLazySingleton(() => ChatCubit(sl()));
+  sl.registerFactory(() => ChatCubit(sl()));
   //repo
   sl.registerLazySingleton(() => HomeRepo());
 

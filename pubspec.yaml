@@ -21,6 +21,7 @@ dependencies:
   dartz:
   internet_connection_checker: ^3.0.1
   fluttertoast:
+  flutter_markdown: ^0.7.7+1
 dev_dependencies:
   flutter_test:
     sdk: flutter
