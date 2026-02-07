@@ -40,7 +40,10 @@ class ChatCubit extends HydratedCubit<ChatState> {
         if (index != -1) {
           messages[index] = userMessage.copyWith(status: MessageStatus.success);
         }
-        messages.insert(0, ChatMessage(text: response.text, isUser: false));
+        messages.insert(
+          0,
+          ChatMessage(text: response.text, isUser: false, shouldAnimate: true),
+        );
         emit(ChatSuccess());
       },
     );

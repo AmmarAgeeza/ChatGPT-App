@@ -1,4 +1,3 @@
-import 'package:chatgpt_app/core/utils/app_strings.dart';
 import 'package:chatgpt_app/core/utils/commons.dart';
 import 'package:chatgpt_app/features/home/views/components/chat_bubble.dart';
 import 'package:chatgpt_app/features/home/views/cubit/chat_cubit.dart';
@@ -26,9 +25,7 @@ class _ChatScreenState extends State<ChatScreen> {
             listener: (context, state) {
               if (state is ChatFailure) {
                 context.showToastMsg(
-                  msg: state.errorMessage == AppStrings.noInternetConnection
-                      ? state.errorMessage
-                      : "Oops, something went wrong",
+                  msg: "Oops, something went wrong",
                   toastState: ToastStates.error,
                 );
               }
@@ -58,7 +55,7 @@ class _ChatScreenState extends State<ChatScreen> {
                   } else {
                     return ChatBubleFromAI(
                       message: message.text,
-                      animate: realIndex == 0,
+                      animate: message.shouldAnimate,
                     );
                   }
                 },

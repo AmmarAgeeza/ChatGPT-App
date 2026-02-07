@@ -34,5 +34,14 @@ void main() {
       final result = ChatMessage.fromJson(json);
       expect(result.status, MessageStatus.sending); // index 0
     });
+
+    test('shouldAnimate is not serialized and defaults to false', () {
+      const msg = ChatMessage(text: 'hi', isUser: false, shouldAnimate: true);
+      final json = msg.toJson();
+      expect(json.containsKey('shouldAnimate'), false);
+
+      final restored = ChatMessage.fromJson(json);
+      expect(restored.shouldAnimate, false);
+    });
   });
 }
