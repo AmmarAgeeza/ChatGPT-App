@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../data/models/chat_suggestions_model.dart';
+import '../cubit/chat_cubit.dart';
 import 'chat_suggestion_header_component.dart';
 
 class ChatSuggestionsComponent extends StatelessWidget {
@@ -20,7 +22,11 @@ class ChatSuggestionsComponent extends StatelessWidget {
             ...List.generate(
               ChatSuggestionModel.suggestionsList[index].suggestions.length,
               (i) => TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  context.read<ChatCubit>().getResponse(
+                    ChatSuggestionModel.suggestionsList[index].suggestions[i],
+                  );
+                },
                 child: Text(
                   ChatSuggestionModel.suggestionsList[index].suggestions[i],
                   style: TextStyle(

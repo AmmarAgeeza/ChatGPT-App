@@ -11,13 +11,13 @@ class ChatScreen extends StatefulWidget {
 
 class _ChatScreenState extends State<ChatScreen> {
   final ScrollController _controller = ScrollController();
-  void _scrollDown() {
-    _controller.animateTo(
-      0,
-      duration: const Duration(seconds: 2),
-      curve: Curves.easeIn,
-    );
-  }
+  // void _scrollDown() {
+  //   _controller.animateTo(
+  //     0,
+  //     duration: const Duration(seconds: 2),
+  //     curve: Curves.easeIn,
+  //   );
+  // }
 
   @override
   Widget build(BuildContext context) {

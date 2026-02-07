@@ -1,3 +1,5 @@
+import 'package:chatgpt_app/features/home/data/repos/home_repo.dart';
+import 'package:chatgpt_app/features/home/views/cubit/chat_cubit.dart';
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
@@ -9,6 +11,11 @@ import '../network/netwok_info.dart';
 
 final sl = GetIt.instance;
 Future<void> serviceLocatorInit() async {
+  //cubits
+  sl.registerLazySingleton(() => ChatCubit(sl()));
+  //repo
+  sl.registerLazySingleton(() => HomeRepo());
+
   //External
   sl.registerLazySingleton(() => InternetConnectionChecker.instance);
 

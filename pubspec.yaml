@@ -20,10 +20,10 @@ dependencies:
   equatable:
   dartz:
   internet_connection_checker: ^3.0.1
+  fluttertoast:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
 
   flutter_lints: ^6.0.0
 flutter_native_splash:
@@ -38,7 +38,6 @@ flutter_launcher_icons:
   image_path: "assets/images/logo.png"
   min_sdk_android: 21
 flutter:
-
   uses-material-design: true
 
   assets:

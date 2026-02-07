@@ -3,11 +3,11 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
-import '../../utils/app_strings.dart';
 
 import '../../error/exceptions.dart';
 import '../../network/netwok_info.dart';
 import '../../services/service_locator.dart';
+import '../../utils/app_strings.dart';
 import 'api_consumer.dart';
 import 'app_interceptors.dart';
 import 'end_points.dart';
@@ -36,17 +36,15 @@ class DioConsumer extends ApiConsumer {
   }) async {
     try {
       // if (await networkInfo.isConnected) {
-        final response = await client.get(
-          path,
-          queryParameters: queryParameters,
-          options: Options(
-            headers: headers,
-          ),
-        );
-        return decodeResponse(response);
+      final response = await client.get(
+        path,
+        queryParameters: queryParameters,
+        options: Options(headers: headers),
+      );
+      return decodeResponse(response);
       // } else {
-        // throw const NoInternetConnectionException(
-            // AppStrings.noInternetConnection);
+      // throw const NoInternetConnectionException(
+      // AppStrings.noInternetConnection);
       // }
     } on DioException catch (error) {
       _handleDioError(error);
@@ -63,19 +61,17 @@ class DioConsumer extends ApiConsumer {
   }) async {
     try {
       // if (await networkInfo.isConnected) {
-        final response = await client.post(
-          path,
-          data: formDataIsEnabled ? FormData.fromMap(body!) : body,
-          options: Options(
-            headers: headers,
-          ),
-          queryParameters: queryParameters,
-        );
+      final response = await client.post(
+        path,
+        data: formDataIsEnabled ? FormData.fromMap(body!) : body,
+        options: Options(headers: headers),
+        queryParameters: queryParameters,
+      );
 
-        return decodeResponse(response);
+      return decodeResponse(response);
       // } else {
-        // throw const NoInternetConnectionException(
-            // AppStrings.noInternetConnection);
+      // throw const NoInternetConnectionException(
+      // AppStrings.noInternetConnection);
       // }
     } on DioException catch (error) {
       _handleDioError(error);
@@ -95,16 +91,17 @@ class DioConsumer extends ApiConsumer {
   }) async {
     try {
       if (await networkInfo.isConnected) {
-        final response = await client.delete(path,
-            data: body,
-            options: Options(
-              headers: headers,
-            ),
-            queryParameters: queryParameters);
+        final response = await client.delete(
+          path,
+          data: body,
+          options: Options(headers: headers),
+          queryParameters: queryParameters,
+        );
         return decodeResponse(response);
       } else {
         throw const NoInternetConnectionException(
-            AppStrings.noInternetConnection);
+          AppStrings.noInternetConnection,
+        );
       }
     } on DioException catch (error) {
       _handleDioError(error);
@@ -122,19 +119,17 @@ class DioConsumer extends ApiConsumer {
   }) async {
     try {
       // if (await networkInfo.isConnected) {
-        final response = await client.patch(
-          path,
-          data: formDataIsEnabled ? FormData.fromMap(body!) : body,
-          queryParameters: queryParameters,
-          options: Options(
-            headers: headers,
-          ),
-        );
+      final response = await client.patch(
+        path,
+        data: formDataIsEnabled ? FormData.fromMap(body!) : body,
+        queryParameters: queryParameters,
+        options: Options(headers: headers),
+      );
 
-        return decodeResponse(response);
+      return decodeResponse(response);
       // } else {
-        // throw const NoInternetConnectionException(
-            // AppStrings.noInternetConnection);
+      // throw const NoInternetConnectionException(
+      // AppStrings.noInternetConnection);
       // }
     } on DioException catch (error) {
       _handleDioError(error);
@@ -155,15 +150,14 @@ class DioConsumer extends ApiConsumer {
           path,
           data: formDataIsEnabled ? FormData.fromMap(body!) : body,
           queryParameters: queryParameters,
-          options: Options(
-            headers: headers,
-          ),
+          options: Options(headers: headers),
         );
 
         return decodeResponse(response);
       } else {
         throw const NoInternetConnectionException(
-            AppStrings.noInternetConnection);
+          AppStrings.noInternetConnection,
+        );
       }
     } on DioException catch (error) {
       _handleDioError(error);
@@ -185,15 +179,14 @@ class DioConsumer extends ApiConsumer {
           savePath,
           data: body,
           queryParameters: queryParameters,
-          options: Options(
-            headers: headers,
-          ),
+          options: Options(headers: headers),
         );
 
         return decodeResponse(response);
       } else {
         throw const NoInternetConnectionException(
-            AppStrings.noInternetConnection);
+          AppStrings.noInternetConnection,
+        );
       }
     } on DioException catch (error) {
       _handleDioError(error);
@@ -208,27 +201,28 @@ class DioConsumer extends ApiConsumer {
       case DioExceptionType.receiveTimeout:
       case DioExceptionType.badCertificate:
       case DioExceptionType.connectionError:
-        throw FetchDataException(errorResponse['error']);
+        throw FetchDataException(errorResponse['error']["message"]);
       case DioExceptionType.badResponse:
         switch (error.response?.statusCode) {
           case StatusCode.notFound:
-            throw NotFoundException(errorResponse['error']);
+            throw NotFoundException(errorResponse['error']["message"]);
           case StatusCode.unauthorized:
           case StatusCode.forbidden:
-            throw UnauthorizedException(errorResponse['error']);
+            throw UnauthorizedException(errorResponse['error']["message"]);
           case StatusCode.badRequest:
-            throw BadRequestException(errorResponse['error']);
+            throw BadRequestException(errorResponse['error']["message"]);
           case StatusCode.conflict:
-            throw ConflictException(errorResponse['error']);
+            throw ConflictException(errorResponse['error']["message"]);
           case StatusCode.internalServerError:
-            throw InternalServerErrorException(
-                errorResponse['message']);
+            throw InternalServerErrorException(errorResponse['message']);
           case StatusCode.gatewayServerError:
             throw InternalServerErrorException(
-                errorResponse['error']);
+              errorResponse['error']["message"],
+            );
           case StatusCode.requestEntityTooLarge:
             throw InternalServerErrorException(
-                errorResponse['error']);
+              errorResponse['error']["message"],
+            );
           default:
             throw ServerException(errorResponse);
         }
@@ -236,7 +230,8 @@ class DioConsumer extends ApiConsumer {
         break;
       case DioExceptionType.unknown:
         throw const NoInternetConnectionException(
-            AppStrings.noInternetConnection);
+          AppStrings.noInternetConnection,
+        );
     }
   }
 }
