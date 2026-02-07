@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../components/chat_suggestions_component.dart';
 import '../components/home_screen_header.dart';
 import '../components/text_field_component.dart';
+import 'chat_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -18,7 +18,7 @@ class HomeScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               //chat suggestions
-              Expanded(child: ChatSuggestionsComponent()),
+              Expanded(child: ChatScreen()),
               //text field
               TextFieldComponent(
                 controller: TextEditingController(),
