@@ -1,3 +1,4 @@
+import 'package:chatgpt_app/core/database/cache/cache_helper.dart';
 import 'package:flutter/material.dart';
 
 import '../../home/views/screens/home_screen.dart';
@@ -46,10 +47,16 @@ class OnboardingScreen extends StatelessWidget {
                 backgroundColor: Color(0xff3369FF),
               ),
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (_) => HomeScreen()),
-                );
+                CacheHelper.saveData(key: "onboarding", value: true).then((
+                  value,
+                ) {
+                  if (context.mounted) {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (_) => HomeScreen()),
+                    );
+                  }
+                });
               },
               child: ListTile(
                 title: Center(

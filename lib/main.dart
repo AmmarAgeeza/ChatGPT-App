@@ -1,4 +1,6 @@
+import 'package:chatgpt_app/core/database/cache/cache_helper.dart';
 import 'package:chatgpt_app/core/services/service_locator.dart';
+import 'package:chatgpt_app/features/home/views/screens/home_screen.dart';
 import 'package:chatgpt_app/features/onboarding/screens/onboarding_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
@@ -29,7 +31,9 @@ class MyApp extends StatelessWidget {
         fontFamily: "Nunito",
         colorScheme: .fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: OnboardingScreen(),
+      home: CacheHelper.getData(key: "onboarding") != null
+          ? HomeScreen()
+          : OnboardingScreen(),
     );
   }
 }

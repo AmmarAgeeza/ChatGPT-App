@@ -1,3 +1,4 @@
+import 'package:chatgpt_app/core/database/cache/cache_helper.dart';
 import 'package:chatgpt_app/features/home/data/repos/home_repo.dart';
 import 'package:chatgpt_app/features/home/views/cubit/chat_cubit.dart';
 import 'package:dio/dio.dart';
@@ -11,6 +12,7 @@ import '../network/netwok_info.dart';
 
 final sl = GetIt.instance;
 Future<void> serviceLocatorInit() async {
+  await CacheHelper.init();
   //cubits
   sl.registerFactory(() => ChatCubit(sl()));
   //repo
