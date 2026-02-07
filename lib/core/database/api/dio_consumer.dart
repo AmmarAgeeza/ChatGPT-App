@@ -60,19 +60,20 @@ class DioConsumer extends ApiConsumer {
     Map<String, dynamic>? queryParameters,
   }) async {
     try {
-      // if (await networkInfo.isConnected) {
-      final response = await client.post(
-        path,
-        data: formDataIsEnabled ? FormData.fromMap(body!) : body,
-        options: Options(headers: headers),
-        queryParameters: queryParameters,
-      );
+      if (await networkInfo.isConnected) {
+        final response = await client.post(
+          path,
+          data: formDataIsEnabled ? FormData.fromMap(body!) : body,
+          options: Options(headers: headers),
+          queryParameters: queryParameters,
+        );
 
-      return decodeResponse(response);
-      // } else {
-      // throw const NoInternetConnectionException(
-      // AppStrings.noInternetConnection);
-      // }
+        return decodeResponse(response);
+      } else {
+        throw const NoInternetConnectionException(
+          AppStrings.noInternetConnection,
+        );
+      }
     } on DioException catch (error) {
       _handleDioError(error);
     }

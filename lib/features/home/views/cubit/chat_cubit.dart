@@ -34,7 +34,7 @@ class ChatCubit extends Cubit<ChatState> {
         if (index != -1) {
           messages[index] = userMessage.copyWith(status: MessageStatus.error);
         }
-        emit(ChatFailure());
+        emit(ChatFailure(errorMessage: error));
       },
       (response) {
         if (index != -1) {

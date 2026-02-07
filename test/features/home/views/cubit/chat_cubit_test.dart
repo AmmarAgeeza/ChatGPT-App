@@ -6,8 +6,13 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 class MockHomeRepo extends HomeRepo {
+  bool shouldReturnOfflineFailure = false;
+
   @override
   Future<Either<String, HomeModel>> getResponse(String text) async {
+    if (shouldReturnOfflineFailure) {
+      return const Left("No Internet Connection");
+    }
     if (text == "error") {
       return const Left("Server Error");
     }
@@ -69,6 +74,18 @@ void main() {
       expect(chatCubit.messages.length, 1);
       expect(chatCubit.messages[0].status, MessageStatus.error);
     });
+
+    test(
+      'sendMessage sets status to error on No Internet Connection',
+      () async {
+        mockHomeRepo.shouldReturnOfflineFailure = true;
+        chatCubit.sendMessage("Hello");
+        await Future.delayed(const Duration(milliseconds: 50));
+
+        expect(chatCubit.messages.length, 1);
+        expect(chatCubit.messages[0].status, MessageStatus.error);
+      },
+    );
 
     test('retry resends the message', () async {
       chatCubit.sendMessage("error");
