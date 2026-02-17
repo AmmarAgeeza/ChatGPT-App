@@ -24,7 +24,6 @@ class ChatCubit extends HydratedCubit<ChatState> {
 
     emit(ChatLoading());
     var result = await repo.getResponse(text);
-    if (isClosed) return;
 
     // Find message index in case list changed
     var index = messages.indexOf(userMessage);
@@ -40,6 +39,9 @@ class ChatCubit extends HydratedCubit<ChatState> {
         if (index != -1) {
           messages[index] = userMessage.copyWith(status: MessageStatus.success);
         }
+        messages = messages
+            .map((e) => e.copyWith(shouldAnimate: false))
+            .toList();
         messages.insert(
           0,
           ChatMessage(text: response.text, isUser: false, shouldAnimate: true),

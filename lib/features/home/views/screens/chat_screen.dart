@@ -33,8 +33,8 @@ class _ChatScreenState extends State<ChatScreen> {
             builder: (context, state) {
               var messages = context.read<ChatCubit>().messages;
               var isLoading = state is ChatLoading;
-
               return ListView.builder(
+                padding: const EdgeInsets.all(0),
                 reverse: true,
                 controller: _controller,
                 itemCount: messages.length + (isLoading ? 1 : 0),
@@ -42,7 +42,6 @@ class _ChatScreenState extends State<ChatScreen> {
                   if (isLoading && index == 0) {
                     return const ChatBubleFromAI(message: "Thinking...");
                   }
-
                   var realIndex = isLoading ? index - 1 : index;
                   var message = messages[realIndex];
                   if (message.isUser) {

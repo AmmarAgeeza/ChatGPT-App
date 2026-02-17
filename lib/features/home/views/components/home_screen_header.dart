@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 class HomeScreenHeader extends StatelessWidget implements PreferredSizeWidget {
@@ -7,6 +6,7 @@ class HomeScreenHeader extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      surfaceTintColor: Colors.white,
       title: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

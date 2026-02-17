@@ -8,7 +8,7 @@ class ChatBubleFromAI extends StatelessWidget {
   const ChatBubleFromAI({
     super.key,
     required this.message,
-    this.animate = true,
+    this.animate = false,
   });
 
   @override

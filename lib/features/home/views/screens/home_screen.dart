@@ -19,11 +19,11 @@ class HomeScreen extends StatelessWidget {
         appBar: HomeScreenHeader(),
         body: Center(
           child: Padding(
-            padding: const EdgeInsets.all(24),
+            padding: const EdgeInsets.all(8),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                //chat suggestions
+                //chat suggestions and ChatScreen
                 Expanded(
                   child: BlocBuilder<ChatCubit, ChatState>(
                     builder: (context, state) {
