@@ -23,7 +23,7 @@ class ChatCubit extends HydratedCubit<ChatState> {
     emit(ChatSuccess());
 
     emit(ChatLoading());
-    var result = await repo.getResponse(text);
+    var result = await repo.getChatResponse(messages);
 
     // Find message index in case list changed
     var index = messages.indexOf(userMessage);
