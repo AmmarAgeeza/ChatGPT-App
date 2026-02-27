@@ -1,4 +1,4 @@
-import 'package:chatgpt_app/features/home/data/models/chat_message_model.dart';
+import 'package:chatgpt_app/features/chat/data/models/chat_message_model.dart';
 import 'package:dartz/dartz.dart';
 
 import '../../../../core/error/exceptions.dart';
@@ -10,8 +10,8 @@ class ChatRepoImpl implements ChatRepo {
 
   ChatRepoImpl({required this.geminiChatService});
   @override
-  Future<Either<String, ChatMessage>> getChatResponse(
-    List<ChatMessage> messages,
+  Future<Either<String, ChatMessageModel>> getChatResponse(
+    List<ChatMessageModel> messages,
   ) async {
     try {
       return Right(await geminiChatService.getChatResponse(messages));
