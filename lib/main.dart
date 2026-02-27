@@ -1,5 +1,6 @@
 import 'package:chatgpt_app/core/database/cache/cache_helper.dart';
 import 'package:chatgpt_app/core/services/service_locator.dart';
+import 'package:chatgpt_app/core/utils/app_color.dart';
 import 'package:chatgpt_app/features/home/views/screens/home_screen.dart';
 import 'package:chatgpt_app/features/onboarding/screens/onboarding_screen.dart';
 import 'package:flutter/material.dart';
@@ -28,6 +29,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
+        scaffoldBackgroundColor: AppColors.whiteColor,
         fontFamily: "Nunito",
         colorScheme: .fromSeed(seedColor: Colors.deepPurple),
       ),

@@ -1,7 +1,8 @@
-import 'package:chatgpt_app/core/database/cache/cache_helper.dart';
+import 'package:chatgpt_app/core/utils/app_color.dart';
+import 'package:chatgpt_app/core/utils/app_images.dart';
+import 'package:chatgpt_app/core/utils/app_strings.dart';
+import 'package:chatgpt_app/features/onboarding/components/continue_button_component.dart';
 import 'package:flutter/material.dart';
-
-import '../../home/views/screens/home_screen.dart';
 
 class OnboardingScreen extends StatelessWidget {
   const OnboardingScreen({super.key});
@@ -18,9 +19,9 @@ class OnboardingScreen extends StatelessWidget {
             Spacer(),
             //heading Text
             Text(
-              "You AI Assistant",
+              AppStrings.youAIAssistant,
               style: TextStyle(
-                color: Color(0xff3369FF),
+                color: AppColors.primaryColor, //hardcoded
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
               ),
@@ -28,53 +29,21 @@ class OnboardingScreen extends StatelessWidget {
             SizedBox(height: 16),
             //sub title Text
             Text(
-              """Using this software,you can ask you questions and receive articles using artificial intelligence assistant""",
+              AppStrings
+                  .usingThisSoftwareYouCanAskYouQuestionsAndReceiveArticlesUsingArtificialIntelligenceAssistant,
               textAlign: TextAlign.center,
               style: TextStyle(
-                color: Color(0xff757575),
+                color: AppColors.secondaryColor,
                 fontSize: 16,
                 fontWeight: FontWeight.w500,
               ),
             ),
             Spacer(),
             // Image
-            Image.asset("assets/images/onboarding_image.png"),
+            Image.asset(AppImages.onboardingImage),
             Spacer(),
             //continue button
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                padding: EdgeInsets.symmetric(horizontal: 0),
-                backgroundColor: Color(0xff3369FF),
-              ),
-              onPressed: () {
-                CacheHelper.saveData(key: "onboarding", value: true).then((
-                  value,
-                ) {
-                  if (context.mounted) {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(builder: (_) => HomeScreen()),
-                    );
-                  }
-                });
-              },
-              child: ListTile(
-                title: Center(
-                  child: Text(
-                    "Continue",
-                    style: TextStyle(
-                      color: Color(0xffFFFFFF),
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-                trailing: Icon(
-                  Icons.arrow_forward_ios,
-                  color: Color(0xffFFFFFF),
-                ),
-              ),
-            ),
+            ContinueButtonComponent(),
           ],
         ),
       ),

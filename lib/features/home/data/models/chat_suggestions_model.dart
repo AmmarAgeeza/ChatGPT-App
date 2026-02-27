@@ -3,11 +3,13 @@ class ChatSuggestionModel {
   final String imagePath, title;
   final List<String> suggestions;
 
+
   const ChatSuggestionModel({
     required this.imagePath,
     required this.title,
     required this.suggestions,
   });
+
   static List<ChatSuggestionModel> suggestionsList = [
     ChatSuggestionModel(
       imagePath: "assets/images/explain.png",

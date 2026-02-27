@@ -1,4 +1,9 @@
 class AppStrings {
+  //onboarding screen
+  static const String youAIAssistant = "You AI Assistant";
+  static const String usingThisSoftwareYouCanAskYouQuestionsAndReceiveArticlesUsingArtificialIntelligenceAssistant =
+      "Using this software,you can ask you questions and receive articles using artificial intelligence assistant";
+  static const String continueButton = "Continue";
   //api exceptions
   static const serverFailure = 'Server Failure';
   static const cacheFailure = 'Cache Failure';
