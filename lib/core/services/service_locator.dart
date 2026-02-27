@@ -5,6 +5,10 @@ import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 
+import '../../features/chat/data/repos/chat_repo.dart';
+import '../../features/chat/data/repos/chat_repo_impl.dart';
+import '../../features/chat/data/services/gemini_chat_service.dart';
+import '../../features/chat/ui/cubit/ai_chat_cubit.dart';
 import '../database/api/api_consumer.dart';
 import '../database/api/app_interceptors.dart';
 import '../database/api/dio_consumer.dart';
@@ -15,9 +19,13 @@ Future<void> serviceLocatorInit() async {
   await CacheHelper.init();
   //cubits
   sl.registerFactory(() => ChatCubit(sl()));
+  sl.registerFactory(() => AiChatCubit(chatRepo: sl()));
   //repo
   sl.registerLazySingleton(() => HomeRepo());
-
+  sl.registerLazySingleton<ChatRepo>(
+    () => ChatRepoImpl(geminiChatService: sl()),
+  );
+  sl.registerLazySingleton(() => GeminiChatService());
   //External
   sl.registerLazySingleton(() => InternetConnectionChecker.instance);
 
