@@ -11,7 +11,7 @@ import '../../services/service_locator.dart';
 import '../../utils/app_strings.dart';
 import 'api_consumer.dart';
 import 'app_interceptors.dart';
-import 'end_points.dart';
+import 'api_key.dart';
 import 'status_code.dart';
 
 class DioConsumer extends ApiConsumer {

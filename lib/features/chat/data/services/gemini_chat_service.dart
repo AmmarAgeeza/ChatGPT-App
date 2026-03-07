@@ -1,5 +1,5 @@
 import 'package:chatgpt_app/core/database/api/api_consumer.dart';
-import 'package:chatgpt_app/core/database/api/end_points.dart';
+import 'package:chatgpt_app/core/database/api/api_key.dart';
 import 'package:chatgpt_app/core/services/service_locator.dart';
 import 'package:chatgpt_app/features/chat/data/models/chat_message_model.dart';
 

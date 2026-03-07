@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:chatgpt_app/core/database/api/end_points.dart';
+import 'package:chatgpt_app/core/database/api/api_key.dart';
 import 'package:dio/dio.dart';
 
 import '../../utils/custom_print.dart';

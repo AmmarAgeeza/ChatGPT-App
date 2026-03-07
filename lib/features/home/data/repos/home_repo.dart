@@ -2,7 +2,7 @@ import 'package:chatgpt_app/features/home/data/models/chat_message_model.dart';
 import 'package:dartz/dartz.dart';
 
 import '../../../../core/database/api/api_consumer.dart';
-import '../../../../core/database/api/end_points.dart';
+import '../../../../core/database/api/api_key.dart';
 import '../../../../core/error/exceptions.dart';
 import '../../../../core/services/service_locator.dart';
 

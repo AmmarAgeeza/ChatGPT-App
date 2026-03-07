@@ -17,8 +17,7 @@ notes.txt
 *.ipr
 *.iws
 .idea/
-/lib/core/database/api/end_points.dart
-
+lib/core/database/api/api_key.dart
 # The .vscode folder contains launch configuration and tasks you configure in
 # VS Code which you may wish to be included in version control, so this line
 # is commented out by default.
