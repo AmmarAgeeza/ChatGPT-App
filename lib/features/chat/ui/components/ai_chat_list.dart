@@ -21,7 +21,7 @@ class AiChatList extends StatelessWidget {
         }
       },
       builder: (context, state) {
-        if (state is AiChatInitial) {
+        if (messages.isEmpty) {
           return ChatSuggestionsComponent(messages: messages);
         }
         if (state is AiChatLoading) {
