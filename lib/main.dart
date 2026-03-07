@@ -1,8 +1,5 @@
-import 'package:chatgpt_app/core/database/cache/cache_helper.dart';
+import 'package:chatgpt_app/app/app.dart';
 import 'package:chatgpt_app/core/services/service_locator.dart';
-import 'package:chatgpt_app/core/utils/app_color.dart';
-import 'package:chatgpt_app/features/home/views/screens/home_screen.dart';
-import 'package:chatgpt_app/features/onboarding/screens/onboarding_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
@@ -19,23 +16,4 @@ void main() async {
   Bloc.observer = MyBlocObserver();
   await serviceLocatorInit();
   runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        scaffoldBackgroundColor: AppColors.whiteColor,
-        fontFamily: "Nunito",
-        colorScheme: .fromSeed(seedColor: Colors.deepPurple),
-      ),
-      home: CacheHelper.getData(key: "onboarding") != null
-          ? HomeScreen()
-          : OnboardingScreen(),
-    );
-  }
 }

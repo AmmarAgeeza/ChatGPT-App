@@ -29,7 +29,7 @@ class HomeScreen extends StatelessWidget {
                     builder: (context, state) {
                       var messages = context.read<ChatCubit>().messages;
                       if (messages.isEmpty) {
-                        return ChatSuggestionsComponent();
+                        return ChatSuggestionsComponent(messages: []);
                       } else {
                         return ChatScreen();
                       }
@@ -39,8 +39,12 @@ class HomeScreen extends StatelessWidget {
                 //text field
                 BlocBuilder<ChatCubit, ChatState>(
                   builder: (context, state) {
-                    var messages = context.read<ChatCubit>().messages;
-                    return TextFieldComponent(isSugget: messages.isEmpty);
+                    // var messages = context.read<ChatCubit>().messages;
+                    return TextFieldComponent(
+                      messages: [],
+                      controller: TextEditingController(),
+                      onSend: () {},
+                    );
                   },
                 ),
               ],

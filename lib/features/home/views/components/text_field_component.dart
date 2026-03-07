@@ -1,28 +1,26 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:chatgpt_app/features/home/views/cubit/chat_cubit.dart';
+import 'package:chatgpt_app/features/chat/data/models/chat_message_model.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
-class TextFieldComponent extends StatefulWidget {
-  const TextFieldComponent({super.key, this.isSugget = false});
-
-  final bool isSugget;
-
-  @override
-  State<TextFieldComponent> createState() => _TextFieldComponentState();
-}
-
-class _TextFieldComponentState extends State<TextFieldComponent> {
-  TextEditingController controller = TextEditingController();
+class TextFieldComponent extends StatelessWidget {
+  final TextEditingController controller;
+  final List<ChatMessageModel> messages;
+  final Function() onSend;
+  const TextFieldComponent({
+    super.key,
+    required this.messages,
+    required this.controller,
+    required this.onSend,
+  });
   @override
   Widget build(BuildContext context) {
     return TextField(
       controller: controller,
       decoration: InputDecoration(
-        hintText: widget.isSugget
+        hintText: messages.isEmpty
             ? "Hello chatGPT,how are you today?"
             : "Write your message",
-        hintStyle: widget.isSugget
+        hintStyle: messages.isEmpty
             ? TextStyle(
                 color: Color(0xff3369FF),
                 fontSize: 14,
@@ -51,19 +49,7 @@ class _TextFieldComponentState extends State<TextFieldComponent> {
             ),
             SizedBox(width: 12),
             InkWell(
-              onTap: () {
-                if (controller.text.isNotEmpty) {
-                  var text = controller.text.trim();
-                  controller.clear();
-                  context.read<ChatCubit>().sendMessage(text);
-                } else if (context.read<ChatCubit>().messages.isEmpty &&
-                    controller.text.isEmpty) {
-                  controller.clear();
-                  context.read<ChatCubit>().sendMessage(
-                    "Hello chatGPT,how are you today?",
-                  );
-                }
-              },
+              onTap: onSend,
               child: SizedBox(
                 height: 18,
                 width: 18,

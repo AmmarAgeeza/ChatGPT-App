@@ -1,13 +1,14 @@
+import 'package:chatgpt_app/features/chat/data/models/chat_message_model.dart';
+import 'package:chatgpt_app/features/chat/ui/cubit/ai_chat_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../data/models/chat_suggestions_model.dart';
-import '../cubit/chat_cubit.dart';
 import 'chat_suggestion_header_component.dart';
 
 class ChatSuggestionsComponent extends StatelessWidget {
-  const ChatSuggestionsComponent({super.key});
-
+  const ChatSuggestionsComponent({super.key, required this.messages});
+  final List<ChatMessageModel> messages;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -23,9 +24,12 @@ class ChatSuggestionsComponent extends StatelessWidget {
               ChatSuggestionModel.suggestionsList[index].suggestions.length,
               (i) => TextButton(
                 onPressed: () {
-                  context.read<ChatCubit>().sendMessage(
-                    ChatSuggestionModel.suggestionsList[index].suggestions[i],
+                  messages.add(
+                    ChatMessageModel.fromUserMessage(
+                      ChatSuggestionModel.suggestionsList[index].suggestions[i],
+                    ),
                   );
+                  context.read<AiChatCubit>().getChatResponse(messages);
                 },
                 child: Text(
                   ChatSuggestionModel.suggestionsList[index].suggestions[i],
