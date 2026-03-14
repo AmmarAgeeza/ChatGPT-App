@@ -6,7 +6,9 @@ import 'package:chatgpt_app/features/chat/data/services/gemini_chat_service.dart
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
+
 class ChatValidationMixinTest with ChatRepoValidationMixin {}
+
 void main() {
   late ChatRepoImpl chatRepoImpl;
   late MockedGeminiChatService mockedGeminiChatService;
@@ -63,6 +65,10 @@ void main() {
     });
   });
 
+  //!after refactoring
+  //we will test the mixin directly
+  //we will create a class that extends the mixin to test it
+  ///validate input
   group("validate input", () {
     test("should return left when messages are empty", () {
       expect(
@@ -83,7 +89,7 @@ void main() {
       );
     });
   });
-
+  //validate output
   group("validate output", () {
     test("should return left when service returns empty parts", () {
       expect(
